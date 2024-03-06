@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Menu from "./Menu"
 
 
 function Header() {
@@ -9,18 +10,7 @@ function Header() {
             <Link href="/" className="btn btn-ghost text-2xl">
             NextCommerce
             </Link>
-            <ul className="flex">
-                <li>
-                    <Link href='/cart' className="btn btn-ghost rounded-btn ">
-                        Cart
-                    </Link>
-                </li>
-                <li>
-                    <Link href='/signin' className="btn btn-ghost rounded-btn">
-                        Sign in
-                    </Link>
-                </li>
-            </ul>
+           <Menu />
         </div>
     </nav>
    </header>

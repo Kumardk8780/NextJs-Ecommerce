@@ -13,7 +13,7 @@ export default function ProductItem({ product }: { product: Product }) {
                         alt={product.name}
                         width={300}
                         height={300}
-                        className="object-cover h-64 w-full"
+                        className="object-cover h-64 w-full mt-5 rounded-sm"
                     />
                 </Link>
             </figure>
@@ -23,7 +23,7 @@ export default function ProductItem({ product }: { product: Product }) {
                 </Link>
                 <p className="mb-2">{product.brand}</p>
                 <div className="card-actions flex items-center justify-between">
-                    <span className="text-2xl">{product.price}</span>
+                    <span className="text-2xl">$ {product.price}</span>
                 </div>
             </div>
         </div>

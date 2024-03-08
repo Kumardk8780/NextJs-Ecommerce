@@ -6,7 +6,7 @@ import Link from "next/link"
 
 export default function ProductDetails({ params, }: { params: { slug: string } }) {
 
-    const product = data.products.find((el) => el.slug === params.slug)
+    const product = data.item.find((el) => el.slug === params.slug)
     if (!product) {
         return <div>Product not found</div>
     }

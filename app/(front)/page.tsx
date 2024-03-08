@@ -18,6 +18,7 @@ export default async function Home() {
 
   return (
     <>
+    {/* Carousel Section */}
       <div className="w-full carousel rounded-box mt-4">
         {
           featuredProducts.map((item,index) => (
@@ -45,6 +46,8 @@ export default async function Home() {
           ))
         }
       </div>
+
+      {/* Latest products */}
       <h2 className="text-2xl py-2">Latest Products</h2>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3 lg:grid-cols-4">
           {

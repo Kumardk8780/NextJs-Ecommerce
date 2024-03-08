@@ -20,7 +20,7 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-const ProductModel = mongoose.models.Item || mongoose.model('Item', productSchema)
+const ProductModel = mongoose.models.Items || mongoose.model('Items', productSchema)
 
 export default ProductModel
 
@@ -37,7 +37,7 @@ export type Product = {
   category: string;
   rating: number;
   numReviews: number;
-  counInStock: number;
+  counInStock: string;
   colors?: [];
   sizes?: [];
 };

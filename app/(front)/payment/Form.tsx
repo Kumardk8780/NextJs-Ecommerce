@@ -12,7 +12,7 @@ const Form = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         savePaymentMethod(selectedPaymentMethod)
-        router.push('/place-roder')
+        router.push('/place-order')
     }
 
     useEffect(() => {

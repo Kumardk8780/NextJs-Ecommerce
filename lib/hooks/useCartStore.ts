@@ -100,6 +100,11 @@ export default function useCartServices() {
         paymentMethod,
       });
     },
+    clear: () => {
+      cartStore.setState({
+        items: [],
+      })
+    }
   };
 }
 

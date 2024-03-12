@@ -25,7 +25,8 @@ const Form = () => {
     const { trigger: placeOrder, isMutating: isPlacing } = useSWRMutation(
         `/api/orders/mine`,
         async (url) => {
-            const res = await fetch('/api/orders', {
+            const res = await fetch('/api/orders', 
+            {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -56,10 +57,15 @@ const Form = () => {
         if (!paymentMethod) {
             return router.push('/payment')
         }
+        if(items.length === 0) {
+            return router.push('/')
+        }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [paymentMethod, router])
 
     const [mounted, setMounted] = useState(false)
+    
     useEffect(() => {
         setMounted(true)
     }, [])

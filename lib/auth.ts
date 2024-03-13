@@ -7,12 +7,13 @@ import NextAuth from "next-auth";
 export const config = {
   providers: [
     CredentialsProvider({
-      credentials: {
-        email: {
-          type: "email",
-        },
-        password: { type: "password" },
-      },
+     credentials: {
+      email: { type: 'email'},
+      password: { type: "password"},
+     },
+
+      // console.log(credentials.email, credentials.);
+      
       async authorize(credentials) {
         await dbConnect();
 

@@ -9,7 +9,7 @@ import { SubmitHandler, ValidationRule, useForm } from "react-hook-form"
 
 const Form = () => {
     const router = useRouter()
-    const { saveShippingAddress, shippingAddress } = useCartServices()
+    const { saveShippingAddrress, shippingAddress } = useCartServices()
     const {
         register,
         handleSubmit,
@@ -34,7 +34,7 @@ const Form = () => {
     }, [setValue, shippingAddress])
 
     const formSubmit: SubmitHandler<ShippingAddress> = async (form) => {
-        saveShippingAddress(form)
+        saveShippingAddrress(form)
         router.push('/payment')
     }
 

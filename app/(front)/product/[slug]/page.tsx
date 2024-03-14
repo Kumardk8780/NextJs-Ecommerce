@@ -11,6 +11,8 @@ export async function generateMetadata({
     params: { slug : string }
 } ) {
     const product = await productService.getBySlug(params.slug)
+    console.log(product);
+    
     if( !product ) {
         return { title: 'Product not found'}
     }
@@ -73,10 +75,10 @@ export default async function ProductDetails({ params, }: { params: { slug: stri
                         <div className="mb-2 flex justify-between">
                             <div>Status</div>
                             <div>
-                                {product.countInStock > 0 ? 'In stock' : 'Unavailable'}
+                                {product.counInStock > 0 ? 'In stock' : 'Unavailable'}
                             </div>
                         </div>
-                       {product.countInStock !== 0 && (
+                       {product.counInStock !== 0 && (
                         <div className="card-actions justify-center">
                             <AddToCart 
                             item={{ ...convertDocToObj(product), qty: 0, color: '', size: '' }}/>

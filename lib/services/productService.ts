@@ -7,7 +7,6 @@ export const revalidate = 3600;
 
 const getLatest = cache(async () => {
   await dbConnect();
-
   const products = await ProductModel.find({})
     .sort({ _id: -1 })
     .limit(4)

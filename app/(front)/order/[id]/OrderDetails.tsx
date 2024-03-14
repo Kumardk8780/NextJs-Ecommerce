@@ -1,9 +1,11 @@
 'use client'
 
 import { OrderItem } from "@/lib/models/OrderModels"
+import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js"
 import { useSession } from "next-auth/react"
 import Image from "next/image"
 import Link from "next/link"
+import toast from "react-hot-toast"
 import useSWR from "swr"
 
 export default function OrderDetails({
@@ -15,6 +17,36 @@ export default function OrderDetails({
     paypalClientId: string
 }) {
     const { data: sesssion } = useSession()
+    console.log(orderId);
+    
+
+    function createPayPalOrder() {
+        return fetch(`/api/orders/${orderId}/create-paypal-order`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+        })
+            .then((response) => response.json())
+            .then((order) => order.id)
+    }
+
+    function onApprovePayPalOrder(data: any) {
+        console.log(orderId);
+        
+        return fetch(`/api/orders/${orderId}/capture-paypal-order`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then((response) => response.json())
+            .then((orderData) => {
+                toast.success("Payment Successfull")
+            })
+    }
+
     const { data, error } = useSWR(`/api/orders/${orderId}`)
 
     if (error) return error.message
@@ -71,7 +103,7 @@ export default function OrderDetails({
                             )}
                         </div>
                     </div>
-                    <div className="card bg-base-300 mt-4">
+                <div className="card bg-base-300 mt-4">
                         <div className="card-body">
                             <h2 className="card-title">Items</h2>
                             <table className="table">
@@ -82,31 +114,32 @@ export default function OrderDetails({
                                         <th>Price</th>
                                     </tr>
                                 </thead>
+                                <tbody>
+                                    {items.map((item: OrderItem) => (
+                                        <tr key={item.slug}>
+                                            <td>
+                                                <Link
+                                                    href={`/product/${item.slug}`}
+                                                    className="flex items-center"
+                                                >
+                                                    <Image
+                                                        src={item.image}
+                                                        alt={item.name}
+                                                        width={50}
+                                                        height={50}
+                                                    ></Image>
+                                                    <span className="px-2">
+                                                        {item.name} ({item.color} {item.size})
+                                                    </span>
+                                                </Link>
+                                            </td>
+                                            <td>{item.qty}</td>
+                                            <td>{item.price}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
                             </table>
-                            <tbody>
-                                {items.map((item: OrderItem) => (
-                                  <tr key={item.slug}>
-                                      <td>
-                                        <Link 
-                                        href={`/product/${item.slug}`}
-                                        className="flex items-center"
-                                        >
-                                            <Image 
-                                                src={item.image}
-                                                alt={item.name}
-                                                width={50}
-                                                height={50}
-                                            ></Image>
-                                            <span className="px-2">
-                                                {item.name} ({item.color} {item.size})
-                                            </span>
-                                        </Link>
-                                    </td>
-                                    <td>{item.qty}</td>
-                                    <td>{item.price}</td>
-                                  </tr>
-                                ))}
-                            </tbody>
+
                         </div>
                     </div>
                 </div>
@@ -140,6 +173,24 @@ export default function OrderDetails({
                                         <div>${totalPrice}</div>
                                     </div>
                                 </li>
+                                
+                                {!isPaid && paymentMethod === 'PayPal' && (
+                                    <>
+                                    {console.log(isPaid)}
+                                    <li>
+                                        <PayPalScriptProvider
+                                            options={{ clientId: paypalClientId }}
+                                        >
+                                            <PayPalButtons
+                                            createOrder={createPayPalOrder}
+                                            onApprove={onApprovePayPalOrder}
+                                            >
+
+                                            </PayPalButtons>
+                                        </PayPalScriptProvider>
+                                    </li>
+                                    </>
+                                )}
                             </ul>
                         </div>
                     </div>

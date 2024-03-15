@@ -66,6 +66,9 @@ const Menu = () => {
                                         <Link href='/order-history'>Order History</Link>
                                     </li>
                                     <li>
+                                        <Link href='/profile'>Profile</Link>
+                                    </li>
+                                    <li>
                                         <button type="button" onClick={signoutHandler}>
                                             Sign out
                                         </button>
@@ -80,11 +83,11 @@ const Menu = () => {
                             className="btn btn-ghost rounded-btn"
                             type="button"
                             onClick={() => signIn()}
-                        >   
+                        >
                             Sign in
                         </button>
                     </li>
-                ) }
+                )}
             </ul>
         </div>
     )

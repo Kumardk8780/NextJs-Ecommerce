@@ -47,4 +47,4 @@ export const POST = auth(async (...request: any) => {
       { status: 404 }
     );
   }
-});
+}) as any

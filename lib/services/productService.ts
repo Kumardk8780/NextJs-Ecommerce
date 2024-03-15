@@ -22,11 +22,11 @@ const getFeatured = cache( async () => {
     return products as Product[]
 })
 
-const getBySlug = cache( async ( slug: string ) => {
+const getBySlug = cache( async ( slug: string ): Promise<Product | null> => {
     await dbConnect()
 
-    const products = await ProductModel.findOne({slug}).lean()
-    return products as Product[]
+    const products = await ProductModel.findOne({slug}).lean() as Product | null;
+    return products || null
 })
 
 const productService = {

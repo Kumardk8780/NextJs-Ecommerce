@@ -25,8 +25,8 @@ export const GET = async (request: NextRequest) => {
 
   return NextResponse.json({
     message: 'seeded successfully',
-    // result: products,
+    result: item,
     users,
-    item,
+    
   })
 }

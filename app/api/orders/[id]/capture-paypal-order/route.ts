@@ -46,4 +46,4 @@ export const POST = auth(async (...request: any) => {
   } else {
     return Response.json({ message: "Oder not found" }, { status: 404 });
   }
-});
+}) as any ;

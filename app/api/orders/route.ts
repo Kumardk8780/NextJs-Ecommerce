@@ -37,12 +37,7 @@ export const POST = auth(async (req: any) => {
       },
       'price'
     )
-    const dbOrderItems = payload.items.map((x: { _id: string }) => ({
-      ...x,
-      product: x._id,
-      price: dbProductPrices.find((x) => x._id === x._id).price,
-      _id: undefined,
-    }))
+    const dbOrderItems = payload.items.map((x: { _id: string }) => ({ ...x, product: x._id, price: dbProductPrices.find((item) => item._id.toString() === x._id).price, _id: undefined, }))
     
     
 
@@ -75,4 +70,4 @@ export const POST = auth(async (req: any) => {
       }
     )
   }
-})
+}) as any
